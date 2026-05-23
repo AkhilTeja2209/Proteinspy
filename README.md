@@ -2,7 +2,7 @@
 
 This is a python package based on Poetry.
 
-This repository can be used to find the _Resolution_, _Missing residues_, _Ligands_, and _Chains_ in any Protein sample uploaded. The sample must be in a .cif file for the pipeline to run properly. A sample [protein](https://github.com/AkhilTeja2209/Proteinspy/blob/main/Final_proj_1/10AJ.cif), has been given, and can also be accessed from the [PDB](www.rcsb.org), among many other samples. 
+This repository can be used to find the _Resolution_, _Missing residues_, _Ligands_, and _Chains_ in any Protein sample uploaded. The sample must be in a .cif file for the pipeline to run properly. A sample [protein](https://github.com/AkhilTeja2209/Proteinspy/blob/main/Final_proj_1/10AJ.cif), has been given, and can also be accessed from the [PDB](https://www.rcsb.org), among many other samples. 
 
 To run the pipeline, python [poetry](https://python-poetry.org/docs/) and its pre-requisites must be available on the system.
 
