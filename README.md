@@ -2,11 +2,15 @@
 
 This is a python package based on Poetry.
 
-This repository can be used to find the _Resolution_, _Missing residues_, _Ligands_, and _Chains_ in any Protein sample uploaded. The sample must be in a .cif file for the pipeline to run properly. A sample [protein](https://github.com/AkhilTeja2209/Proteinspy/blob/main/Final_proj_1/10AJ.cif), has been given, and can also be accessed from the [PDB](https://www.rcsb.org), among many other samples. 
+This repository can be used to find the _Resolution_, _Missing residues_, _Ligands_, and _Chains_ in any Protein sample uploaded. The sample must be in a .cif file for the pipeline to run properly. 
 
-To run the pipeline, python [poetry](https://python-poetry.org/docs/) and its pre-requisites must be available on the system.
+## 📚 Data
+A sample [protein](https://github.com/AkhilTeja2209/Proteinspy/blob/main/Final_proj_1/10AJ.cif), has been given, and can also be accessed from the [PDB](https://www.rcsb.org), among many other samples. 
 
-Pipeline:
+## 🗒️ Requirements
+python [poetry](https://python-poetry.org/docs/) and its pre-requisites must be available on the system.
+
+## 🚀 To run the pipeline,
 
 1. For a mode based implementation
 ```bash
@@ -26,3 +30,10 @@ poetry run proteinspy ligands 10AJ.cif       #gives the ligands in the protein
 poetry run proteinspy missing 10AJ.cif       #gives the missing residues in the protein
 poetry run proteinspy chains 10AJ.cif        #gives the chains in the protein
 ```
+
+## 📈 Future Enhancements
+- [ ] UI/UX 
+- [ ] Containerisation, using docker
+
+## ⚠️ NOTE
+This is an open-source project, and any contribtions, even if not mentioned in the future enhancements section, are welcome. 
