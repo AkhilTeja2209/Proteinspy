@@ -2,11 +2,10 @@ import click
 from rich.console import Console
 from rich.table import Table
 from rich import box
-
+from rich.text import Text
 from .analysis import get_resolution, get_chains, get_ligands, get_missing_residues
 
 console = Console()
-
 
 # ── display helpers ──
 
@@ -65,17 +64,51 @@ def show_missing(path: str) -> None:
     console.print(t)
     console.print()
 
+def print_help() -> None:
+    """Print a rich-formatted help table."""
+    console.print()
+    console.print("[bold green]Proteinspy CLI[/bold green]", justify="center")
+    console.print()
 
-#CLI commands
+    t = Table(
+        box=box.SIMPLE_HEAVY,
+        show_header=True,
+        header_style="bold cyan",
+        expand=True,
+    )
+    t.add_column("Command", style="bold yellow", min_width=20)
+    t.add_column("Description")
 
-@click.group()
-def main():
+    t.add_row("--help",      "Show this help message and exit")
+    t.add_row("--version",   "Show the package version and exit")
+    t.add_row("analyze",     "Run all analyses on a .cif file — resolution, chains, ligands, missing residues")
+    t.add_row("resolution",  "Report crystallographic resolution only")
+    t.add_row("chains",      "Report all polymer chains only")
+    t.add_row("ligands",     "Report all ligand molecules only")
+    t.add_row("missing",     "Report all missing residues only")
+
+    console.print(t)
+    console.print()
+    console.print("Usage: [bold]proteinspy [cyan]<command>[/cyan] <file.cif>[/bold]")
+    console.print("Example: [bold]proteinspy analyze 10AJ.cif[/bold]")
+    console.print()
+
+# ── CLI commands ──
+
+CONTEXT_SETTINGS = dict(help_option_names=["--help", "-h"])
+
+@click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
+@click.version_option(version="1.0.0", prog_name="proteinspy")
+@click.pass_context
+def main(ctx):
     """proteinspy — Analyse a .cif protein structure file."""
+    if ctx.invoked_subcommand is None:
+        print_help()
 
 @main.command("analyze")
 @click.argument("cif_file")
 def cmd_analyze(cif_file: str):
-    """Run all analyses on a .cif file (mode-based)."""
+    """Run all analyses on a .cif file."""
     console.rule(f"[bold blue]proteinspy — {cif_file}[/bold blue]")
     show_resolution(cif_file)
     show_chains(cif_file)
