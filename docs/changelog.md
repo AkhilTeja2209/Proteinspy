@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.2 — 2026-06-06
+
+### Changes
+- Added Windows PATH fix note
+
 ## v1.0.1 — 2026-06-06
 
 ### Changes
