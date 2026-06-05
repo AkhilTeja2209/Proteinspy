@@ -32,8 +32,13 @@ poetry run proteinspy chains 10AJ.cif        #gives the chains in the protein
 ```
 
 ## 📈 Future Enhancements
-- [ ] UI/UX 
+- [ ] CLI UI/UX
 - [ ] Containerisation, using docker
+- [ ] Help section in CLI for better usability
 
 ## ⚠️ NOTE
 This is an open-source project, and any contribtions, even if not mentioned in the future enhancements section, are welcome. 
+
+---
+
+**Version:** 1.0.0

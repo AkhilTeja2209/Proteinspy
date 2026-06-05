@@ -1,8 +1,8 @@
-\# Installation
+# Installation
 
 
 
-\## Install from PyPI (recommended)
+## Install from PyPI (recommended)
 
 
 
@@ -30,7 +30,7 @@ proteinspy --help
 
 
 
-\## Install from source (for development)
+## Install from source (for development)
 
 
 
@@ -46,17 +46,17 @@ poetry install
 
 
 
-\## Requirements
+## Requirements
 
 
 
-\- Python 3.9 or higher
+- Python 3.9 or higher
 
-\- `gemmi` — mmCIF parsing
+- `gemmi` — mmCIF parsing
 
-\- `rich` — terminal output formatting
+- `rich` — terminal output formatting
 
-\- `click` — CLI framework
+- `click` — CLI framework
 
 
 

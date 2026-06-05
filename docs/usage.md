@@ -1,20 +1,16 @@
-\# Usage
+# Usage
 
 
 
-\## Getting a sample file
+## Getting a sample file
 
 
 
-A sample file `10AJ.cif` is included in the repository. You can also download
-
-any structure from \[RCSB PDB](https://www.rcsb.org) — search for a protein and
-
-download the mmCIF format.
+A sample file `10AJ.cif` is included in the repository. You can also download any structure from [RCSB PDB](https://www.rcsb.org) — search for a protein and download the mmCIF format.
 
 
 
-\## Interactive (analyze) mode
+## Interactive (analyze) mode
 
 
 
@@ -30,7 +26,7 @@ proteinspy analyze 10AJ.cif
 
 
 
-\## Argument mode
+## Argument mode
 
 
 
@@ -52,7 +48,7 @@ proteinspy missing 10AJ.cif      # missing residue positions
 
 
 
-\## Using with Poetry (from source)
+## Using with Poetry (from source)
 
 
 
