@@ -1,8 +1,8 @@
 # Proteinspy
 
-A Poetry-based Python package to analyze protein 3D structure from `.cif` files.
+> A Poetry-based Python package to analyze protein 3D structure from `.cif` files.
 
-Proteinspy extracts key structural metadata from mmCIF files using gemmi and displays results beautifully in the terminal using rich.
+Proteinspy extracts key structural metadata from mmCIF files using [gemmi](https://gemmi.readthedocs.io/en/latest/) and displays results beautifully in the terminal using [rich](https://rich.readthedocs.io/).
 
 ## What it extracts
 
@@ -15,9 +15,9 @@ Proteinspy extracts key structural metadata from mmCIF files using gemmi and dis
 
 ## Quick Start
 
-Install and run:
-
-    pip install proteinspy
-    proteinspy analyze 10AJ.cif
+```bash
+pip install proteinspy
+proteinspy analyze 10AJ.cif
+```
 
 See [Installation](installation.md) for full setup, and [Usage](usage.md) for all commands.
