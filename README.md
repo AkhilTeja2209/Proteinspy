@@ -86,4 +86,4 @@ Full documentation at [https://akhilteja2209.github.io/Proteinspy/](https://akhi
 
 ---
 
-**Version:** 1.0.1
+**Version:** 1.0.2
