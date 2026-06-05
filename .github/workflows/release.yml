@@ -40,18 +40,10 @@ jobs:
           body: |
             ## Proteinspy ${{ github.ref_name }}
 
-            A Poetry-based Python package to analyze protein structure from `.cif` files.
+            A Poetry-based Python package to analyze protein structure from .cif files.
 
-            ### Install from PyPI
-```bash
-            pip install proteinspy
-```
+            Install from PyPI: pip install proteinspy
 
-            ### Or from source
-```bash
-            git clone https://github.com/AkhilTeja2209/Proteinspy.git
-            cd Proteinspy/Final_proj_1
-            poetry install
-```
+            Or from source: git clone https://github.com/AkhilTeja2209/Proteinspy.git
 
-            See the [documentation](https://akhilteja2209.github.io/Proteinspy/) for full usage.
+            See the documentation at https://akhilteja2209.github.io/Proteinspy/
