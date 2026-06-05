@@ -1,0 +1,57 @@
+name: Release & Publish to PyPI
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Poetry
+        run: pip install poetry
+
+      - name: Build package
+        working-directory: Final_proj_1
+        run: poetry build
+
+      - name: Publish to PyPI
+        working-directory: Final_proj_1
+        env:
+          POETRY_PYPI_TOKEN_PYPI: ${{ secrets.PYPI_TOKEN }}
+        run: poetry publish
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: Final_proj_1/dist/*
+          body: |
+            ## Proteinspy ${{ github.ref_name }}
+
+            A Poetry-based Python package to analyze protein structure from `.cif` files.
+
+            ### Install from PyPI
+```bash
+            pip install proteinspy
+```
+
+            ### Or from source
+```bash
+            git clone https://github.com/AkhilTeja2209/Proteinspy.git
+            cd Proteinspy/Final_proj_1
+            poetry install
+```
+
+            See the [documentation](https://akhilteja2209.github.io/Proteinspy/) for full usage.
