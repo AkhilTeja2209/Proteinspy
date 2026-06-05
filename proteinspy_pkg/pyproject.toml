@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "proteinspy"
-version = "1.0.1"
+version = "1.0.2"
 description = "A Poetry package to analyze protein structure from .cif files"
 authors = ["AkhilTeja2209 <your_email@example.com>"]
 readme = "README.md"
