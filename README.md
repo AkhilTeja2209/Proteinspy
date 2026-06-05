@@ -1,5 +1,7 @@
 # Proteinspy
 
+https://pypi.org/project/proteinspy/
+
 This is a python package based on Poetry.
 
 This repository can be used to find the _Resolution_, _Missing residues_, _Ligands_, and _Chains_ in any Protein sample uploaded. The sample must be in a `.cif` file format for the package to run properly. 
