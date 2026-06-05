@@ -4,13 +4,24 @@ This is a python package based on Poetry.
 
 This repository can be used to find the _Resolution_, _Missing residues_, _Ligands_, and _Chains_ in any Protein sample uploaded. The sample must be in a `.cif` file format for the package to run properly. 
 
-## :battery: Installation
+## 🔋 Installation
 
 ```bash
 pip install proteinspy
 ```
+### Windows note
 
-## :bulb: Getting Started
+If `proteinspy` is not recognized after installation, add the Python Scripts
+folder to your PATH. Run this once in PowerShell:
+
+```powershell
+$env:PATH += ";$env:APPDATA\Python\Python313\Scripts"
+[System.Environment]::SetEnvironmentVariable("PATH", $env:PATH, "User")
+```
+
+Then restart PowerShell and run `proteinspy` again.
+
+## 💡 Getting Started
 
 After installation, run this first to see all available commands:
 
@@ -48,9 +59,9 @@ proteinspy missing 10AJ.cif       #gives the missing residues in the protein
 proteinspy chains 10AJ.cif        #gives the chains in the protein
 ```
 
-**Note: swap the file name if you are using your own file**
+🟥 **Note:** swap the file name if you are using your own file
 
-## :computer: Commands
+## 💻 Commands
 
 **Format:** `proteinspy <command> <file.cif>`
 
@@ -70,7 +81,7 @@ proteinspy chains 10AJ.cif        #gives the chains in the protein
 ## ⚠️ NOTE
 This is an open-source project, and any contributions, even if not mentioned in the future enhancements section, are welcome. 
 
-## Documentation
+## 📃 Documentation
 Full documentation at [https://akhilteja2209.github.io/Proteinspy/](https://akhilteja2209.github.io/Proteinspy/)
 
 ---
