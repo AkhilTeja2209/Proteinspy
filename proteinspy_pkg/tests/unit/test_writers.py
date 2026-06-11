@@ -79,4 +79,4 @@ class TestWriteOutput:
     def test_file_content_matches_return(self, tmp_path):
         out = str(tmp_path / "output.json")
         returned = write_output(SIMPLE, "json", output_path=out)
-        assert returned == open(out).read()
+        assert returned == open(out, encoding="utf-8").read()
