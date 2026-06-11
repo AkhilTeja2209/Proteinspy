@@ -167,4 +167,4 @@ Full API reference and usage guides at
 
 ---
 
-**Version:** 1.1.2
+**Version:** 1.1.3
