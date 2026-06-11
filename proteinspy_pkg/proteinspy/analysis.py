@@ -1,3 +1,13 @@
+# analysis.py
+#
+# This is the original single-file implementation from v1.0.x.
+# As of v1.1.0 this module has been superseded by the analysis/ sub-package
+# (analysis/basic.py and analysis/advanced.py) which contains the same
+# functions with type hints, error handling, and additional analyses.
+#
+# This file is kept for reference. It is not imported by the package —
+# use `from proteinspy.analysis import get_resolution` etc. instead.
+
 import gemmi
 
 # Residue types to exclude from ligand detection
