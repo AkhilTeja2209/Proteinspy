@@ -1,10 +1,14 @@
 """Unit tests for proteinspy.analysis.basic"""
+
 from __future__ import annotations
 
 import pytest
 
 from proteinspy.analysis.basic import (
-    get_chains, get_ligands, get_missing_residues, get_resolution,
+    get_chains,
+    get_ligands,
+    get_missing_residues,
+    get_resolution,
 )
 from proteinspy.exceptions import FileNotFoundError, InvalidFileFormatError
 
@@ -79,7 +83,9 @@ class TestGetLigands:
 
     def test_required_keys(self, sample_cif):
         result = get_ligands(sample_cif)
-        assert "ligand_count" in result and "has_ligand" in result and "ligands" in result
+        assert (
+            "ligand_count" in result and "has_ligand" in result and "ligands" in result
+        )
 
     def test_has_ligand_consistent(self, sample_cif):
         result = get_ligands(sample_cif)

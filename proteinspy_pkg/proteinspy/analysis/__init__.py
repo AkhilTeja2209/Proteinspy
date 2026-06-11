@@ -1,4 +1,5 @@
 """Analysis sub-package — basic and advanced structure analyses."""
+
 from proteinspy.analysis.basic import (
     get_resolution,
     get_chains,

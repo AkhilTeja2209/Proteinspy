@@ -4,6 +4,7 @@ Structure quality validator.
 Produces human-readable warnings about common structural problems
 without requiring external tools (DSSP, MolProbity, etc.).
 """
+
 from __future__ import annotations
 
 import logging
@@ -13,10 +14,10 @@ from proteinspy.utils.helpers import read_structure
 
 logger = logging.getLogger(__name__)
 
-_RES_HIGH   = 2.0
+_RES_HIGH = 2.0
 _RES_MEDIUM = 3.0
-_RES_LOW    = 3.5
-_RES_POOR   = 4.5
+_RES_LOW = 3.5
+_RES_POOR = 4.5
 _MISSING_WARN = 0.10
 
 
@@ -44,11 +45,14 @@ def validate_structure(path: str) -> Dict[str, Any]:
             missing_fraction (float): Fraction of residues missing.
     """
     import gemmi
+
     st = read_structure(path)
     warnings: List[str] = []
     info: List[str] = []
 
-    resolution: Optional[float] = st.resolution if st.resolution and st.resolution > 0 else None
+    resolution: Optional[float] = (
+        st.resolution if st.resolution and st.resolution > 0 else None
+    )
     method = "UNKNOWN"
     try:
         block = gemmi.cif.read(path).sole_block()
@@ -59,7 +63,11 @@ def validate_structure(path: str) -> Dict[str, Any]:
         pass
 
     if resolution is None:
-        if method.upper() not in {"SOLUTION NMR", "SOLID-STATE NMR", "NEUTRON DIFFRACTION"}:
+        if method.upper() not in {
+            "SOLUTION NMR",
+            "SOLID-STATE NMR",
+            "NEUTRON DIFFRACTION",
+        }:
             warnings.append(
                 "Resolution not available — structure may be a theoretical model "
                 "or experimental metadata is incomplete."
@@ -117,7 +125,9 @@ def validate_structure(path: str) -> Dict[str, Any]:
         )
 
     if not st.cell.is_crystal():
-        info.append("No crystallographic unit cell found (expected for NMR or theoretical models).")
+        info.append(
+            "No crystallographic unit cell found (expected for NMR or theoretical models)."
+        )
 
     return {
         "warnings": warnings,

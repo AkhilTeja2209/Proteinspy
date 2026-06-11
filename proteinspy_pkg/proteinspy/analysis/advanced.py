@@ -3,6 +3,7 @@ Advanced structure analyses.
 
 All analyses are implemented using only gemmi — no external binaries required.
 """
+
 from __future__ import annotations
 
 import logging
@@ -14,7 +15,7 @@ from proteinspy.utils.helpers import read_structure
 
 logger = logging.getLogger(__name__)
 
-_SS_DIST_MAX     = 2.5
+_SS_DIST_MAX = 2.5
 _INTERFACE_CUTOFF = 5.0
 
 
@@ -50,12 +51,17 @@ def get_bfactor_stats(path: str) -> Dict[str, Any]:
                         chain_bfactors.append(b)
                         all_bfactors.append(b)
             if chain_bfactors:
-                by_chain.append({"chain_id": chain.name, **_compute_stats(chain_bfactors)})
+                by_chain.append(
+                    {"chain_id": chain.name, **_compute_stats(chain_bfactors)}
+                )
 
         return {"overall": _compute_stats(all_bfactors), "by_chain": by_chain}
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
         raise AnalysisError(f"B-factor analysis failed for '{path}': {exc}") from exc
 
@@ -106,30 +112,43 @@ def get_disulfide_bonds(path: str) -> Dict[str, Any]:
                     continue
                 for atom in res:
                     if atom.name == "SG":
-                        sg_atoms.append({
-                            "chain": chain.name,
-                            "res": res.name,
-                            "seqid": str(res.seqid),
-                            "pos": atom.pos,
-                        })
+                        sg_atoms.append(
+                            {
+                                "chain": chain.name,
+                                "res": res.name,
+                                "seqid": str(res.seqid),
+                                "pos": atom.pos,
+                            }
+                        )
 
         bonds: List[Dict[str, Any]] = []
         for i, a in enumerate(sg_atoms):
-            for b in sg_atoms[i + 1:]:
+            for b in sg_atoms[i + 1 :]:
                 dist = a["pos"].dist(b["pos"])
                 if dist <= _SS_DIST_MAX:
-                    bonds.append({
-                        "chain_a": a["chain"], "res_a": a["res"], "seqid_a": a["seqid"],
-                        "chain_b": b["chain"], "res_b": b["res"], "seqid_b": b["seqid"],
-                        "distance_A": round(dist, 3),
-                    })
+                    bonds.append(
+                        {
+                            "chain_a": a["chain"],
+                            "res_a": a["res"],
+                            "seqid_a": a["seqid"],
+                            "chain_b": b["chain"],
+                            "res_b": b["res"],
+                            "seqid_b": b["seqid"],
+                            "distance_A": round(dist, 3),
+                        }
+                    )
 
         return {"bond_count": len(bonds), "bonds": bonds}
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
-        raise AnalysisError(f"Disulfide bond detection failed for '{path}': {exc}") from exc
+        raise AnalysisError(
+            f"Disulfide bond detection failed for '{path}': {exc}"
+        ) from exc
 
 
 def get_chain_interface(path: str, cutoff: float = _INTERFACE_CUTOFF) -> Dict[str, Any]:
@@ -173,7 +192,7 @@ def get_chain_interface(path: str, cutoff: float = _INTERFACE_CUTOFF) -> Dict[st
         interface_map: Dict[str, Dict[str, Any]] = {}
 
         for i, ca_name in enumerate(chain_names):
-            for cb_name in chain_names[i + 1:]:
+            for cb_name in chain_names[i + 1 :]:
                 key = f"{ca_name}|{cb_name}"
                 res_a: set = set()
                 res_b: set = set()
@@ -189,14 +208,23 @@ def get_chain_interface(path: str, cutoff: float = _INTERFACE_CUTOFF) -> Dict[st
                         "chain_a": ca_name,
                         "chain_b": cb_name,
                         "contact_pairs": contact_pairs,
-                        "residues_a": sorted(res_a, key=lambda x: int(x) if x.isdigit() else 0),
-                        "residues_b": sorted(res_b, key=lambda x: int(x) if x.isdigit() else 0),
+                        "residues_a": sorted(
+                            res_a, key=lambda x: int(x) if x.isdigit() else 0
+                        ),
+                        "residues_b": sorted(
+                            res_b, key=lambda x: int(x) if x.isdigit() else 0
+                        ),
                     }
 
         interfaces = list(interface_map.values())
         return {"interface_count": len(interfaces), "interfaces": interfaces}
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
-        raise AnalysisError(f"Chain interface analysis failed for '{path}': {exc}") from exc
+        raise AnalysisError(
+            f"Chain interface analysis failed for '{path}': {exc}"
+        ) from exc

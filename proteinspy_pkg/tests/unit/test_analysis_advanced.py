@@ -1,10 +1,13 @@
 """Unit tests for proteinspy.analysis.advanced"""
+
 from __future__ import annotations
 
 import pytest
 
 from proteinspy.analysis.advanced import (
-    get_bfactor_stats, get_chain_interface, get_disulfide_bonds,
+    get_bfactor_stats,
+    get_chain_interface,
+    get_disulfide_bonds,
 )
 
 
@@ -63,7 +66,15 @@ class TestGetDisulfideBonds:
 
     def test_bond_entry_structure(self, sample_cif):
         for bond in get_disulfide_bonds(sample_cif)["bonds"]:
-            for key in ("chain_a","res_a","seqid_a","chain_b","res_b","seqid_b","distance_A"):
+            for key in (
+                "chain_a",
+                "res_a",
+                "seqid_a",
+                "chain_b",
+                "res_b",
+                "seqid_b",
+                "distance_A",
+            ):
                 assert key in bond
 
     def test_bond_distance_in_range(self, sample_cif):
@@ -89,7 +100,13 @@ class TestGetChainInterface:
 
     def test_interface_entry_structure(self, sample_cif):
         for iface in get_chain_interface(sample_cif)["interfaces"]:
-            for key in ("chain_a","chain_b","contact_pairs","residues_a","residues_b"):
+            for key in (
+                "chain_a",
+                "chain_b",
+                "contact_pairs",
+                "residues_a",
+                "residues_b",
+            ):
                 assert key in iface
 
     def test_contact_pairs_positive(self, sample_cif):

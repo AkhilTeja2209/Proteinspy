@@ -5,6 +5,7 @@ All functions accept a file path and return a plain dictionary so results
 are easily serialised to JSON or CSV. Structures are parsed via the cached
 read_structure() helper, so re-analysing the same file is free.
 """
+
 from __future__ import annotations
 
 import logging
@@ -17,16 +18,57 @@ from proteinspy.utils.helpers import read_structure
 
 logger = logging.getLogger(__name__)
 
-_STANDARD_AA: frozenset = frozenset([
-    "ALA","ARG","ASN","ASP","CYS","GLN","GLU","GLY","HIS","ILE",
-    "LEU","LYS","MET","PHE","PRO","SER","THR","TRP","TYR","VAL",
-    "SEC","PYL","UNK",
-])
-_STANDARD_NUC: frozenset = frozenset(["DA","DC","DG","DT","DI","A","C","G","U","I"])
-_SOLVENT: frozenset = frozenset([
-    "HOH","WAT","DOD","SO4","EDO","GOL","PEG","ACT","MPD",
-    "PO4","CLR","DMS","FMT","TRS","IOD","BME","EPE",
-])
+_STANDARD_AA: frozenset = frozenset(
+    [
+        "ALA",
+        "ARG",
+        "ASN",
+        "ASP",
+        "CYS",
+        "GLN",
+        "GLU",
+        "GLY",
+        "HIS",
+        "ILE",
+        "LEU",
+        "LYS",
+        "MET",
+        "PHE",
+        "PRO",
+        "SER",
+        "THR",
+        "TRP",
+        "TYR",
+        "VAL",
+        "SEC",
+        "PYL",
+        "UNK",
+    ]
+)
+_STANDARD_NUC: frozenset = frozenset(
+    ["DA", "DC", "DG", "DT", "DI", "A", "C", "G", "U", "I"]
+)
+_SOLVENT: frozenset = frozenset(
+    [
+        "HOH",
+        "WAT",
+        "DOD",
+        "SO4",
+        "EDO",
+        "GOL",
+        "PEG",
+        "ACT",
+        "MPD",
+        "PO4",
+        "CLR",
+        "DMS",
+        "FMT",
+        "TRS",
+        "IOD",
+        "BME",
+        "EPE",
+    ]
+)
 
 
 def get_resolution(path: str) -> Dict[str, Any]:
@@ -57,7 +99,9 @@ def get_resolution(path: str) -> Dict[str, Any]:
     """
     try:
         st = read_structure(path)
-        res: Optional[float] = st.resolution if st.resolution and st.resolution > 0 else None
+        res: Optional[float] = (
+            st.resolution if st.resolution and st.resolution > 0 else None
+        )
 
         if res is None:
             try:
@@ -86,7 +130,10 @@ def get_resolution(path: str) -> Dict[str, Any]:
         return {"resolution": res, "unit": "Å" if res else None, "method": method}
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
         raise AnalysisError(f"Resolution analysis failed for '{path}': {exc}") from exc
 
@@ -119,18 +166,25 @@ def get_chains(path: str) -> Dict[str, Any]:
                 seen.add(chain.name)
                 polymer = chain.get_polymer()
                 ptype = (
-                    str(polymer.check_polymer_type()) if len(polymer) > 0 else "non-polymer"
+                    str(polymer.check_polymer_type())
+                    if len(polymer) > 0
+                    else "non-polymer"
                 )
-                chains.append({
-                    "id": chain.name,
-                    "type": ptype,
-                    "residue_count": sum(1 for _ in chain),
-                })
+                chains.append(
+                    {
+                        "id": chain.name,
+                        "type": ptype,
+                        "residue_count": sum(1 for _ in chain),
+                    }
+                )
 
         return {"chain_count": len(chains), "chains": chains}
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
         raise AnalysisError(f"Chain analysis failed for '{path}': {exc}") from exc
 
@@ -166,13 +220,19 @@ def get_ligands(path: str) -> Dict[str, Any]:
                     ):
                         continue
                     name = res.name.strip()
-                    if name in _STANDARD_AA or name in _STANDARD_NUC or name in _SOLVENT:
+                    if (
+                        name in _STANDARD_AA
+                        or name in _STANDARD_NUC
+                        or name in _SOLVENT
+                    ):
                         continue
                     key = f"{name}:{chain.name}:{res.seqid}"
                     if key in seen:
                         continue
                     seen.add(key)
-                    found.append({"id": name, "chain": chain.name, "seq_num": str(res.seqid)})
+                    found.append(
+                        {"id": name, "chain": chain.name, "seq_num": str(res.seqid)}
+                    )
 
         if not found:
             try:
@@ -185,19 +245,28 @@ def get_ligands(path: str) -> Dict[str, Any]:
                     if comp in seen:
                         continue
                     seen.add(comp)
-                    found.append({
-                        "id": comp,
-                        "chain": "?",
-                        "seq_num": "?",
-                        "name": row[0].strip().strip("'\""),
-                    })
+                    found.append(
+                        {
+                            "id": comp,
+                            "chain": "?",
+                            "seq_num": "?",
+                            "name": row[0].strip().strip("'\""),
+                        }
+                    )
             except Exception:
                 pass
 
-        return {"ligand_count": len(found), "has_ligand": len(found) > 0, "ligands": found}
+        return {
+            "ligand_count": len(found),
+            "has_ligand": len(found) > 0,
+            "ligands": found,
+        }
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
         raise AnalysisError(f"Ligand analysis failed for '{path}': {exc}") from exc
 
@@ -227,7 +296,9 @@ def get_missing_residues(path: str) -> Dict[str, Any]:
                 polymer = chain.get_polymer()
                 if len(polymer) == 0:
                     continue
-                observed = {str(r.label_seq) for r in polymer if r.label_seq is not None}
+                observed = {
+                    str(r.label_seq) for r in polymer if r.label_seq is not None
+                }
                 entity_id = next((r.entity_id for r in polymer), None)
                 if entity_id is None:
                     continue
@@ -236,24 +307,34 @@ def get_missing_residues(path: str) -> Dict[str, Any]:
                     continue
                 for idx, mon in enumerate(entity.full_sequence, start=1):
                     if str(idx) not in observed:
-                        missing.append({"chain": chain.name, "seq_num": idx, "residue": mon})
+                        missing.append(
+                            {"chain": chain.name, "seq_num": idx, "residue": mon}
+                        )
 
         cif_missing: List[Dict[str, Any]] = []
         try:
             block = gemmi.cif.read(path).sole_block()
             table = block.find(
                 "_pdbx_unobs_or_zero_occ_residues.",
-                ["auth_asym_id", "auth_comp_id", "auth_seq_id", "PDB_model_num", "polymer_flag"],
+                [
+                    "auth_asym_id",
+                    "auth_comp_id",
+                    "auth_seq_id",
+                    "PDB_model_num",
+                    "polymer_flag",
+                ],
             )
             for row in table:
                 if row[4].strip() != "Y":
                     continue
-                cif_missing.append({
-                    "chain": row[0].strip(),
-                    "residue": row[1].strip(),
-                    "seq_num": row[2].strip(),
-                    "model": row[3].strip(),
-                })
+                cif_missing.append(
+                    {
+                        "chain": row[0].strip(),
+                        "residue": row[1].strip(),
+                        "seq_num": row[2].strip(),
+                        "model": row[3].strip(),
+                    }
+                )
         except Exception:
             pass
 
@@ -261,6 +342,11 @@ def get_missing_residues(path: str) -> Dict[str, Any]:
         return {"missing_count": len(final), "missing_residues": final}
 
     except Exception as exc:
-        if "FileNotFound" in type(exc).__name__ or "InvalidFileFormat" in type(exc).__name__:
+        if (
+            "FileNotFound" in type(exc).__name__
+            or "InvalidFileFormat" in type(exc).__name__
+        ):
             raise
-        raise AnalysisError(f"Missing residue analysis failed for '{path}': {exc}") from exc
+        raise AnalysisError(
+            f"Missing residue analysis failed for '{path}': {exc}"
+        ) from exc

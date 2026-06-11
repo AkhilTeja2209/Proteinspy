@@ -3,6 +3,7 @@ Output formatters for analysis results.
 
 Supported formats: json, csv, tsv.
 """
+
 from __future__ import annotations
 
 import csv
@@ -70,7 +71,9 @@ def to_csv(data: Dict[str, Any], delimiter: str = ",") -> str:
             for row in list_val:
                 writer.writerow({**scalars, **row})
         else:
-            writer = csv.DictWriter(buf, fieldnames=list(scalars.keys()), delimiter=delimiter)
+            writer = csv.DictWriter(
+                buf, fieldnames=list(scalars.keys()), delimiter=delimiter
+            )
             writer.writeheader()
             writer.writerow(scalars)
 
@@ -107,7 +110,9 @@ def write_output(
     elif fmt == "tsv":
         content = to_csv(data, delimiter="\t")
     else:
-        raise ValueError(f"Unsupported output format: '{fmt}'. Choose from json, csv, tsv.")
+        raise ValueError(
+            f"Unsupported output format: '{fmt}'. Choose from json, csv, tsv."
+        )
 
     if output_path:
         try:

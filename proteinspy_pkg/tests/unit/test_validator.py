@@ -1,4 +1,5 @@
 """Unit tests for proteinspy.core.validator"""
+
 from __future__ import annotations
 
 import pytest
@@ -11,7 +12,15 @@ class TestValidateStructure:
 
     def test_required_keys(self, sample_cif):
         result = validate_structure(sample_cif)
-        for key in ("warnings","info","pass","resolution","method","model_count","missing_fraction"):
+        for key in (
+            "warnings",
+            "info",
+            "pass",
+            "resolution",
+            "method",
+            "model_count",
+            "missing_fraction",
+        ):
             assert key in result
 
     def test_warnings_is_list(self, sample_cif):

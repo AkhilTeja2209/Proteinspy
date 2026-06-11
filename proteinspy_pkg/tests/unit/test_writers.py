@@ -1,4 +1,5 @@
 """Unit tests for proteinspy.io.writers"""
+
 from __future__ import annotations
 
 import json
@@ -61,7 +62,9 @@ class TestWriteOutput:
 
     def test_csv_format(self):
         result = write_output(SIMPLE, "csv")
-        assert isinstance(result, str) and ("resolution" in result or "method" in result)
+        assert isinstance(result, str) and (
+            "resolution" in result or "method" in result
+        )
 
     def test_tsv_format(self):
         assert "\t" in write_output(SIMPLE, "tsv")

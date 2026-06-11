@@ -14,6 +14,7 @@ json    Machine-readable JSON
 csv     Comma-separated values
 tsv     Tab-separated values
 """
+
 from __future__ import annotations
 
 import sys
@@ -41,9 +42,13 @@ from proteinspy.io.writers import write_output
 console = Console()
 
 _OUTPUT_OPTION = click.option(
-    "--output", "-o", "output_fmt",
+    "--output",
+    "-o",
+    "output_fmt",
     type=click.Choice(["table", "json", "csv", "tsv"], case_sensitive=False),
-    default="table", show_default=True, help="Output format.",
+    default="table",
+    show_default=True,
+    help="Output format.",
 )
 
 
@@ -100,7 +105,9 @@ def show_ligands(path: str) -> None:
 
 def show_missing(path: str) -> None:
     r = get_missing_residues(path)
-    console.print(f"[bold cyan]Missing Residues[/bold cyan]  ({r['missing_count']} found)\n")
+    console.print(
+        f"[bold cyan]Missing Residues[/bold cyan]  ({r['missing_count']} found)\n"
+    )
     if r["missing_count"] == 0:
         console.print("  [green]No missing residues.[/green]\n")
         return
@@ -109,7 +116,9 @@ def show_missing(path: str) -> None:
     t.add_column("Residue", justify="center")
     t.add_column("Seq #", justify="right")
     for mr in r["missing_residues"]:
-        t.add_row(mr.get("chain", "?"), mr.get("residue", "?"), str(mr.get("seq_num", "?")))
+        t.add_row(
+            mr.get("chain", "?"), mr.get("residue", "?"), str(mr.get("seq_num", "?"))
+        )
     console.print(t)
     console.print()
 
@@ -131,15 +140,23 @@ def show_bfactor(path: str) -> None:
         t.add_column("Std", justify="right")
         t.add_column("Atoms", justify="right")
         for ch in r["by_chain"]:
-            t.add_row(ch["chain_id"], str(ch["min"]), str(ch["max"]),
-                      str(ch["mean"]), str(ch["std"]), str(ch["atom_count"]))
+            t.add_row(
+                ch["chain_id"],
+                str(ch["min"]),
+                str(ch["max"]),
+                str(ch["mean"]),
+                str(ch["std"]),
+                str(ch["atom_count"]),
+            )
         console.print(t)
     console.print()
 
 
 def show_disulfide(path: str) -> None:
     r = get_disulfide_bonds(path)
-    console.print(f"\n[bold cyan]Disulfide Bonds[/bold cyan]  ({r['bond_count']} found)\n")
+    console.print(
+        f"\n[bold cyan]Disulfide Bonds[/bold cyan]  ({r['bond_count']} found)\n"
+    )
     if r["bond_count"] == 0:
         console.print("  [yellow]No disulfide bonds detected.[/yellow]\n")
         return
@@ -152,15 +169,24 @@ def show_disulfide(path: str) -> None:
     t.add_column("Seq B", justify="right")
     t.add_column("Distance (Å)", justify="right")
     for b in r["bonds"]:
-        t.add_row(b["chain_a"], b["res_a"], b["seqid_a"],
-                  b["chain_b"], b["res_b"], b["seqid_b"], str(b["distance_A"]))
+        t.add_row(
+            b["chain_a"],
+            b["res_a"],
+            b["seqid_a"],
+            b["chain_b"],
+            b["res_b"],
+            b["seqid_b"],
+            str(b["distance_A"]),
+        )
     console.print(t)
     console.print()
 
 
 def show_interface(path: str) -> None:
     r = get_chain_interface(path)
-    console.print(f"\n[bold cyan]Chain Interfaces[/bold cyan]  ({r['interface_count']} found)\n")
+    console.print(
+        f"\n[bold cyan]Chain Interfaces[/bold cyan]  ({r['interface_count']} found)\n"
+    )
     if r["interface_count"] == 0:
         console.print("  [yellow]No inter-chain interfaces detected.[/yellow]\n")
         return
@@ -177,14 +203,18 @@ def show_interface(path: str) -> None:
         rb = ", ".join(iface["residues_b"][:8])
         if len(iface["residues_b"]) > 8:
             rb += f" … (+{len(iface['residues_b']) - 8})"
-        t.add_row(iface["chain_a"], iface["chain_b"], str(iface["contact_pairs"]), ra, rb)
+        t.add_row(
+            iface["chain_a"], iface["chain_b"], str(iface["contact_pairs"]), ra, rb
+        )
     console.print(t)
     console.print()
 
 
 def show_validate(path: str) -> None:
     r = validate_structure(path)
-    status = "[bold green]PASS[/bold green]" if r["pass"] else "[bold red]FAIL[/bold red]"
+    status = (
+        "[bold green]PASS[/bold green]" if r["pass"] else "[bold red]FAIL[/bold red]"
+    )
     console.print(f"\n[bold cyan]Structure Validation[/bold cyan]  {status}\n")
     if r["info"]:
         console.print("[bold]Info:[/bold]")
@@ -204,22 +234,27 @@ def print_help() -> None:
     console.print()
     console.print("[bold green]Proteinspy CLI[/bold green]", justify="center")
     console.print()
-    t = Table(box=box.SIMPLE_HEAVY, show_header=True, header_style="bold cyan", expand=True)
+    t = Table(
+        box=box.SIMPLE_HEAVY, show_header=True, header_style="bold cyan", expand=True
+    )
     t.add_column("Command", style="bold yellow", min_width=22)
     t.add_column("Description")
     rows = [
-        ("--help",      "Show this help message and exit"),
-        ("--version",   "Show the package version and exit"),
-        ("analyze",     "Run all basic analyses (resolution, chains, ligands, missing residues)"),
-        ("resolution",  "Crystallographic resolution and experimental method"),
-        ("chains",      "Polymer chains with type and residue count"),
-        ("ligands",     "Non-solvent ligand molecules"),
-        ("missing",     "Residues present in sequence but absent from ATOM records"),
-        ("bfactor",     "B-factor statistics — global and per-chain"),
-        ("disulfide",   "Disulfide bonds detected by SG-SG distance (<= 2.5 Å)"),
-        ("interface",   "Inter-chain interface residues by Ca distance"),
-        ("validate",    "Quick quality check — resolution, completeness, model count"),
-        ("export",      "Export any analysis result to a JSON / CSV / TSV file"),
+        ("--help", "Show this help message and exit"),
+        ("--version", "Show the package version and exit"),
+        (
+            "analyze",
+            "Run all basic analyses (resolution, chains, ligands, missing residues)",
+        ),
+        ("resolution", "Crystallographic resolution and experimental method"),
+        ("chains", "Polymer chains with type and residue count"),
+        ("ligands", "Non-solvent ligand molecules"),
+        ("missing", "Residues present in sequence but absent from ATOM records"),
+        ("bfactor", "B-factor statistics — global and per-chain"),
+        ("disulfide", "Disulfide bonds detected by SG-SG distance (<= 2.5 Å)"),
+        ("interface", "Inter-chain interface residues by Ca distance"),
+        ("validate", "Quick quality check — resolution, completeness, model count"),
+        ("export", "Export any analysis result to a JSON / CSV / TSV file"),
     ]
     for cmd, desc in rows:
         t.add_row(cmd, desc)
@@ -345,8 +380,13 @@ def cmd_disulfide(structure_file: str, output_fmt: str) -> None:
 
 @main.command("interface")
 @click.argument("structure_file")
-@click.option("--cutoff", default=5.0, show_default=True, type=float,
-              help="Ca-Ca distance threshold in Angstroms.")
+@click.option(
+    "--cutoff",
+    default=5.0,
+    show_default=True,
+    type=float,
+    help="Ca-Ca distance threshold in Angstroms.",
+)
 @_OUTPUT_OPTION
 def cmd_interface(structure_file: str, cutoff: float, output_fmt: str) -> None:
     """Report inter-chain interface residues."""
@@ -373,12 +413,25 @@ def cmd_validate(structure_file: str, output_fmt: str) -> None:
 @click.argument("structure_file")
 @click.argument("output_file")
 @click.option(
-    "--analysis", "-a",
+    "--analysis",
+    "-a",
     type=click.Choice(
-        ["resolution","chains","ligands","missing","bfactor",
-         "disulfide","interface","validate","all"], case_sensitive=False,
+        [
+            "resolution",
+            "chains",
+            "ligands",
+            "missing",
+            "bfactor",
+            "disulfide",
+            "interface",
+            "validate",
+            "all",
+        ],
+        case_sensitive=False,
     ),
-    default="all", show_default=True, help="Which analysis to export.",
+    default="all",
+    show_default=True,
+    help="Which analysis to export.",
 )
 def cmd_export(structure_file: str, output_file: str, analysis: str) -> None:
     """
@@ -393,14 +446,19 @@ def cmd_export(structure_file: str, output_file: str, analysis: str) -> None:
       proteinspy export protein.cif chains.csv --analysis chains
     """
     import os as _os
+
     ext = _os.path.splitext(output_file.lower())[1].lstrip(".")
     fmt = {"json": "json", "csv": "csv", "tsv": "tsv"}.get(ext, "json")
 
     _analysis_map = {
-        "resolution": get_resolution, "chains": get_chains,
-        "ligands": get_ligands, "missing": get_missing_residues,
-        "bfactor": get_bfactor_stats, "disulfide": get_disulfide_bonds,
-        "interface": get_chain_interface, "validate": validate_structure,
+        "resolution": get_resolution,
+        "chains": get_chains,
+        "ligands": get_ligands,
+        "missing": get_missing_residues,
+        "bfactor": get_bfactor_stats,
+        "disulfide": get_disulfide_bonds,
+        "interface": get_chain_interface,
+        "validate": validate_structure,
     }
 
     try:

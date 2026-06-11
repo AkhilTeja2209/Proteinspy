@@ -1,4 +1,5 @@
 """Integration tests for the Proteinspy Click CLI."""
+
 from __future__ import annotations
 
 import json
@@ -107,7 +108,10 @@ class TestInterfaceCommand:
         assert runner.invoke(main, ["interface", sample_cif]).exit_code == 0
 
     def test_custom_cutoff(self, runner, sample_cif):
-        assert runner.invoke(main, ["interface", sample_cif, "--cutoff", "8.0"]).exit_code == 0
+        assert (
+            runner.invoke(main, ["interface", sample_cif, "--cutoff", "8.0"]).exit_code
+            == 0
+        )
 
 
 class TestValidateCommand:
@@ -128,12 +132,16 @@ class TestExportCommand:
         result = runner.invoke(main, ["export", sample_cif, out])
         assert result.exit_code == 0
         import os
+
         assert os.path.exists(out)
         assert "resolution" in json.load(open(out))
 
     def test_export_csv(self, runner, sample_cif, tmp_path):
         out = str(tmp_path / "chains.csv")
-        result = runner.invoke(main, ["export", sample_cif, out, "--analysis", "chains"])
+        result = runner.invoke(
+            main, ["export", sample_cif, out, "--analysis", "chains"]
+        )
         assert result.exit_code == 0
         import os
+
         assert os.path.exists(out)

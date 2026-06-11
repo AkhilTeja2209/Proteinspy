@@ -1,6 +1,7 @@
 """
 Shared utility functions used across Proteinspy modules.
 """
+
 from __future__ import annotations
 
 import logging
