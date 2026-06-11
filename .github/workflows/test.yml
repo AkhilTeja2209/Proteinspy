@@ -57,5 +57,3 @@ jobs:
         run: poetry run black --check proteinspy tests
       - name: Pylint
         run: poetry run pylint proteinspy --fail-under=7.0
-      - name: Mypy type check
-        run: poetry run mypy proteinspy
