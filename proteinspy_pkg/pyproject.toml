@@ -2,7 +2,7 @@
 name = "proteinspy"
 version = "1.1.0"
 description = "A CLI tool and Python library to analyse protein structures from .cif and .pdb files"
-authors = ["AkhilTeja2209 <your_email@example.com>"]
+authors = ["AkhilTeja2209 <mvsakhilteja@gmail.com>"]
 readme = "README.md"
 license = "MIT"
 homepage = "https://akhilteja2209.github.io/Proteinspy/"
