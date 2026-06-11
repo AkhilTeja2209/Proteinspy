@@ -1,64 +1,45 @@
 # Installation
 
-
-
-## Install from PyPI (recommended)
-
-
-
-Works on Windows, Ubuntu, and macOS with Python 3.9+:
-
-
+## From PyPI (recommended)
 
 ```bash
-
 pip install proteinspy
-
 ```
 
-
-
-Verify it works:
-
-
+## From source
 
 ```bash
-
-proteinspy --help
-
-```
-
-
-
-## Install from source (for development)
-
-
-
-```bash
-
 git clone https://github.com/AkhilTeja2209/Proteinspy.git
-
-cd Proteinspy/Final\_proj\_1
-
+cd Proteinspy/proteinspy_pkg
 poetry install
-
 ```
 
+---
 
+## Windows note
+
+If `proteinspy` is not recognised after installation, the Python Scripts
+folder is not on your PATH. Run this once in PowerShell:
+
+```powershell
+$env:PATH += ";$env:APPDATA\Python\Python313\Scripts"
+[System.Environment]::SetEnvironmentVariable("PATH", $env:PATH, "User")
+```
+
+Then restart PowerShell and run `proteinspy` again.
+
+---
 
 ## Requirements
 
+- Python 3.10 or later
+- Dependencies installed automatically: `gemmi`, `rich`, `click`
 
+---
 
-- Python 3.9 or higher
+## Verify installation
 
-- `gemmi` — mmCIF parsing
-
-- `rich` — terminal output formatting
-
-- `click` — CLI framework
-
-
-
-These are installed automatically by both `pip install` and `poetry install`.
-
+```bash
+proteinspy --version
+# proteinspy, version 1.1.1
+```

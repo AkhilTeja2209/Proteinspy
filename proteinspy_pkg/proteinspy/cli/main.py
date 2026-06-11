@@ -273,7 +273,7 @@ CONTEXT_SETTINGS = dict(help_option_names=["--help", "-h"])
 
 
 @click.group(context_settings=CONTEXT_SETTINGS, invoke_without_command=True)
-@click.version_option(version="1.1.0", prog_name="proteinspy")
+@click.version_option(version="1.1.1", prog_name="proteinspy")
 @click.pass_context
 def main(ctx: click.Context) -> None:
     """proteinspy — Analyse a protein structure file (.cif or .pdb)."""
