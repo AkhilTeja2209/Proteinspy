@@ -48,3 +48,5 @@ site/
 *.tmp
 *.bak
 *.swp
+
+proteinspy_pkg/proteinspy/__pycache__/
