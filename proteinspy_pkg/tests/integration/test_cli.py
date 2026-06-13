@@ -21,7 +21,7 @@ class TestMainGroup:
 
     def test_version_flag(self, runner):
         result = runner.invoke(main, ["--version"])
-        assert result.exit_code == 0 and "1.1.3" in result.output
+        assert result.exit_code == 0 and "1.1.4" in result.output
 
 
 class TestAnalyzeCommand:
