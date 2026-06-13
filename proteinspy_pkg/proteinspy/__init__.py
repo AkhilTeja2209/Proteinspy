@@ -22,7 +22,7 @@ from proteinspy.analysis.advanced import (
 from proteinspy.core.validator import validate_structure
 from proteinspy.io.writers import to_json, to_csv, write_output
 
-__version__ = "1.1.4"
+__version__ = "1.1.5"
 __author__ = "AkhilTeja2209"
 __license__ = "MIT"
 

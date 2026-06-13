@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "proteinspy"
-version = "1.1.4"
+version = "1.1.5"
 description = "A CLI tool and Python library to analyse protein structure files"
 authors = ["AkhilTeja2209 <mvsakhilteja@gmail.com>"]
 readme = "README.md"
