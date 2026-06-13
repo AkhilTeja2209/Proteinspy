@@ -33,7 +33,7 @@ from proteinspy import (
 Extract crystallographic or cryo-EM resolution.
 
 ```python
-result = get_resolution("protein.cif")
+result = get_resolution("my_protein.cif")
 # {'resolution': 2.42, 'unit': 'Å', 'method': 'X-RAY DIFFRACTION'}
 ```
 
@@ -46,7 +46,7 @@ result = get_resolution("protein.cif")
 List all polymer chains in the first model.
 
 ```python
-result = get_chains("protein.cif")
+result = get_chains("my_protein.cif")
 # {
 #   'chain_count': 2,
 #   'chains': [
@@ -65,7 +65,7 @@ result = get_chains("protein.cif")
 Identify non-solvent ligand molecules.
 
 ```python
-result = get_ligands("protein.cif")
+result = get_ligands("my_protein.cif")
 # {'ligand_count': 1, 'has_ligand': True,
 #  'ligands': [{'id': 'ATP', 'chain': 'A', 'seq_num': '501'}]}
 ```
@@ -79,7 +79,7 @@ result = get_ligands("protein.cif")
 Find residues present in the sequence but absent from ATOM records.
 
 ```python
-result = get_missing_residues("protein.cif")
+result = get_missing_residues("my_protein.cif")
 # {'missing_count': 5,
 #  'missing_residues': [{'chain': 'A', 'residue': 'GLY', 'seq_num': 12}, ...]}
 ```
@@ -95,7 +95,7 @@ result = get_missing_residues("protein.cif")
 Compute B-factor statistics globally and per chain.
 
 ```python
-result = get_bfactor_stats("protein.cif")
+result = get_bfactor_stats("my_protein.cif")
 # {
 #   'overall': {'min': 10.2, 'max': 89.4, 'mean': 32.1, 'std': 12.3, 'atom_count': 3424},
 #   'by_chain': [{'chain_id': 'A', 'min': 10.2, ...}, ...]
@@ -111,7 +111,7 @@ result = get_bfactor_stats("protein.cif")
 Detect CYS–CYS disulfide bonds by SG–SG distance (≤ 2.5 Å).
 
 ```python
-result = get_disulfide_bonds("protein.cif")
+result = get_disulfide_bonds("my_protein.cif")
 # {
 #   'bond_count': 2,
 #   'bonds': [
@@ -131,7 +131,7 @@ result = get_disulfide_bonds("protein.cif")
 Find residues at inter-chain interfaces by Cα distance.
 
 ```python
-result = get_chain_interface("protein.cif", cutoff=5.0)
+result = get_chain_interface("my_protein.cif", cutoff=5.0)
 # {
 #   'interface_count': 1,
 #   'interfaces': [
@@ -156,7 +156,7 @@ result = get_chain_interface("protein.cif", cutoff=5.0)
 Run a quick quality check on a structure file.
 
 ```python
-result = validate_structure("protein.cif")
+result = validate_structure("my_protein.cif")
 # {
 #   'pass': True,
 #   'warnings': [],
@@ -181,7 +181,7 @@ Serialise any analysis result to a JSON string.
 
 ```python
 from proteinspy import get_chains, to_json
-print(to_json(get_chains("protein.cif")))
+print(to_json(get_chains("my_protein.cif")))
 ```
 
 ---
@@ -192,7 +192,7 @@ Serialise any analysis result to CSV. List-valued keys are expanded to one row e
 
 ```python
 from proteinspy import get_chains, to_csv
-print(to_csv(get_chains("protein.cif")))
+print(to_csv(get_chains("my_protein.cif")))
 ```
 
 ---
@@ -204,7 +204,7 @@ Format data and optionally write to a file.
 ```python
 from proteinspy import get_bfactor_stats, write_output
 
-data = get_bfactor_stats("protein.cif")
+data = get_bfactor_stats("my_protein.cif")
 
 # Print to terminal
 print(write_output(data, "json"))
