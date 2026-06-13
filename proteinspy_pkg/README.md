@@ -24,7 +24,8 @@ If `proteinspy` is not recognised after installation, add the Python Scripts
 folder to your PATH. Run this once in PowerShell:
 
 ```powershell
-$env:PATH += ";$env:APPDATA\Python\Python313\Scripts"
+$scriptsPath = python -c "import sysconfig; print(sysconfig.get_path('scripts', 'nt_user'))"
+$env:PATH += ";$scriptsPath"
 [System.Environment]::SetEnvironmentVariable("PATH", $env:PATH, "User")
 ```
 
@@ -35,11 +36,13 @@ Then restart PowerShell and run `proteinspy` again.
 ## Quick start
 
 ```bash
-# See all commands
+# See all commands with
 proteinspy
+# Or
+proteinspy --help
 
 # Run all basic analyses on a structure file
-proteinspy analyze 10AJ.cif
+proteinspy analyze my_protein.cif
 
 # Works with PDB format too
 proteinspy analyze my_protein.pdb
@@ -75,27 +78,27 @@ proteinspy analyze my_protein.pdb
 
 ```bash
 # Basic analyses
-proteinspy analyze    10AJ.cif
-proteinspy resolution 10AJ.cif
-proteinspy chains     10AJ.cif
-proteinspy ligands    10AJ.cif
-proteinspy missing    10AJ.cif
+proteinspy analyze    my_protein.cif
+proteinspy resolution my_protein.cif
+proteinspy chains     my_protein.cif
+proteinspy ligands    my_protein.cif
+proteinspy missing    my_protein.cif
 
 # Advanced analyses
-proteinspy bfactor   protein.cif
-proteinspy disulfide protein.cif
-proteinspy interface protein.cif --cutoff 8.0
-proteinspy validate  protein.cif
+proteinspy bfactor   my_protein.cif
+proteinspy disulfide my_protein.cif
+proteinspy interface my_protein.cif --cutoff 8.0
+proteinspy validate  my_protein.cif
 
 # Output formats — any command supports --output / -o
-proteinspy chains    protein.cif --output json
-proteinspy bfactor   protein.cif --output csv
-proteinspy analyze   protein.cif -o tsv
+proteinspy chains    my_protein.cif --output json
+proteinspy bfactor   my_protein.cif --output csv
+proteinspy analyze   my_protein.cif -o tsv
 
 # Export to file (format inferred from extension)
-proteinspy export protein.cif report.json
-proteinspy export protein.cif chains.csv  --analysis chains
-proteinspy export protein.cif bonds.json  --analysis disulfide
+proteinspy export my_protein.cif report.json
+proteinspy export my_protein.cif chains.csv  --analysis chains
+proteinspy export my_protein.cif bonds.json  --analysis disulfide
 ```
 
 ---
@@ -125,29 +128,31 @@ Every command accepts `--output` (or `-o`):
 
 ## Python API
 
-You can import and use every analysis function directly:
+You can import and use every analysis function directly: 
 
 ```python
 from proteinspy import get_resolution, get_chains, get_bfactor_stats
 from proteinspy import to_json, write_output
 
 # Basic
-result = get_resolution("protein.cif")
+result = get_resolution("my_protein.cif")
 print(result["resolution"], result["method"])
 
 # Advanced
-stats = get_bfactor_stats("protein.cif")
+stats = get_bfactor_stats("my_protein.cif")
 print(stats["overall"]["mean"])
 
 # Export
-write_output(get_chains("protein.cif"), "json", output_path="chains.json")
+write_output(get_chains("my_protein.cif"), "json", output_path="chains.json")
 ```
+Check out [API Reference](https://akhilteja2209.github.io/Proteinspy/api/) for the list of all the functions.
 
 ---
 
 ## Requirements
 
-- Python 3.9 or later
+- `pip` installed on device
+- Python 3.10 or later
 - Dependencies installed automatically: `gemmi`, `rich`, `click`
 
 ---
@@ -162,9 +167,9 @@ and how to add a new analysis command.
 
 ## Documentation
 
-Full API reference and usage guides at
+Full Installation and usage guides at
 [akhilteja2209.github.io/Proteinspy](https://akhilteja2209.github.io/Proteinspy/)
 
 ---
 
-**Version:** 1.1.3
+**Version:** 1.1.4
