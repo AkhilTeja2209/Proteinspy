@@ -160,7 +160,7 @@ Check out [API Reference](https://akhilteja2209.github.io/Proteinspy/api/) for t
 ## Contributing
 
 Contributions are welcome — new analyses, output formats, bug fixes, or docs.
-See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions, code standards,
+See [CONTRIBUTING.md](https://github.com/AkhilTeja2209/Proteinspy/blob/main/CONTRIBUTING.md) for setup instructions, code standards,
 and how to add a new analysis command.
 
 ---
