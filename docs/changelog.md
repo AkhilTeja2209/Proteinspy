@@ -5,17 +5,14 @@ on GitHub for the full version history.
 
 ---
 
-## v1.1.1 — 2025-06-11
+## v1.1.1 — 2026-06-11
 
-Metadata and documentation update. No functional changes.
-
-- Updated PyPI package description to reflect v1.1.0 features
 - Comprehensive documentation rewrite covering all new commands
 - Python minimum version updated to 3.10 in package metadata
 
 ---
 
-## v1.1.0 — 2025-06-11
+## v1.1.0 — 2026-06-11
 
 Major feature release.
 
@@ -29,7 +26,7 @@ Major feature release.
 
 ---
 
-## v1.0.2 — 2025-05-01
+## v1.0.2 — 2026-06-06
 
 - Minor packaging fixes
 
