@@ -43,5 +43,5 @@ Then restart PowerShell and run `proteinspy` again.
 
 ```bash
 proteinspy --version
-# proteinspy, version 1.1.4
+# proteinspy, version 1.1.5
 ```
