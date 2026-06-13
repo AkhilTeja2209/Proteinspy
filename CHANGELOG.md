@@ -6,6 +6,14 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.1.4] - 2026-06-13
+
+### Fixed
+- Inconsistent details in documentation and PyPI.
+- Features made up-to-date in the documentation.
+
+---
+
 ## [1.1.3] - 2026-06-11
 
 ### Fixed
