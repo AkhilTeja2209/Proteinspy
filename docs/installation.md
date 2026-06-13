@@ -22,7 +22,8 @@ If `proteinspy` is not recognised after installation, the Python Scripts
 folder is not on your PATH. Run this once in PowerShell:
 
 ```powershell
-$env:PATH += ";$env:APPDATA\Python\Python313\Scripts"
+$scriptsPath = python -c "import sysconfig; print(sysconfig.get_path('scripts', 'nt_user'))"
+$env:PATH += ";$scriptsPath"
 [System.Environment]::SetEnvironmentVariable("PATH", $env:PATH, "User")
 ```
 
@@ -32,6 +33,7 @@ Then restart PowerShell and run `proteinspy` again.
 
 ## Requirements
 
+- Latest `pip` version
 - Python 3.10 or later
 - Dependencies installed automatically: `gemmi`, `rich`, `click`
 
@@ -41,5 +43,5 @@ Then restart PowerShell and run `proteinspy` again.
 
 ```bash
 proteinspy --version
-# proteinspy, version 1.1.1
+# proteinspy, version 1.1.4
 ```
