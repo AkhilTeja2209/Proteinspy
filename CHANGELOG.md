@@ -6,6 +6,32 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.1.3] - 2026-06-11
+
+### Fixed
+- Visual updates to PyPI to make it consistent and fix the description.
+
+---
+
+## [1.1.2] - 2026-06-11
+
+### Fixed
+- Fixed PyPI homepage description to reflect all the latest changes, including all the features introduced in v1.1.0.
+
+---
+
+## [1.1.1] - 2026-06-11
+
+### Fixed
+- Added the new CLI commands, API Interface, and Python package fuctions to documentation.
+- Rewrote the documentation website.
+
+### Changed
+- Denounced Python 3.9 support.
+- 10AJ.cif, the sample protein to test package functions is no longer shipped with the package download; only supported when cloning the repository for Proteinspy usage.
+
+---
+
 ## [1.1.0] - 2025-06-11
 
 ### Added
@@ -99,7 +125,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [1.0.2] - 2025-05-01
+## [1.0.2] - 2026-06-06
 
 ### Fixed
 - Resolved packaging issue where `click` was used but not declared as a
@@ -107,7 +133,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [1.0.1] - 2025-04-15
+## [1.0.1] - 2026-06-06
 
 ### Fixed
 - Minor bug fixes in missing residue detection for structures with multiple
@@ -115,7 +141,7 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
-## [1.0.0] - 2025-04-01
+## [1.0.0] - 2026-06-06
 
 ### Added
 - Initial release
