@@ -7,6 +7,7 @@ import pytest
 from click.testing import CliRunner
 
 from proteinspy.cli.main import main
+from proteinspy import __version__
 
 
 @pytest.fixture
@@ -21,7 +22,7 @@ class TestMainGroup:
 
     def test_version_flag(self, runner):
         result = runner.invoke(main, ["--version"])
-        assert result.exit_code == 0 and "1.1.4" in result.output
+        assert result.exit_code == 0 and __version__ in result.output
 
 
 class TestAnalyzeCommand:
