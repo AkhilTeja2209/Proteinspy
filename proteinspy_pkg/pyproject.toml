@@ -13,7 +13,7 @@ keywords = [
     "pdb", "cif", "mmcif", "cryo-em", "x-ray", "nmr", "gemmi",
 ]
 classifiers = [
-    "Development Status :: Production Ready",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
