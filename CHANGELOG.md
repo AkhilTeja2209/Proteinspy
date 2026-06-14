@@ -6,7 +6,17 @@ Versioning follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
+## [1.1.5] - 2026-06-14
+
+### Fixed
+- Unstable PyPI documentation update
+- Testing fallacies during production release; version dynamically checked without the requirement of future updates.
+
+---
+
 ## [1.1.4] - 2026-06-13
+
+**Notice:** Unstable release version
 
 ### Fixed
 - Inconsistent details in documentation and PyPI.

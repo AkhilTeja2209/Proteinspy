@@ -17,8 +17,8 @@ All commands accept `.cif`, `.mmcif`, `.pdb`, `.ent`, and `.gz` compressed varia
 Run all basic analyses in one go — resolution, chains, ligands, missing residues.
 
 ```bash
-proteinspy analyze protein.cif
-proteinspy analyze protein.pdb --output json
+proteinspy analyze my_protein.cif
+proteinspy analyze my_protein.pdb --output json
 ```
 
 ---
@@ -28,7 +28,7 @@ proteinspy analyze protein.pdb --output json
 Report the crystallographic or cryo-EM resolution and experimental method.
 
 ```bash
-proteinspy resolution protein.cif
+proteinspy resolution my_protein.cif
 ```
 
 **Output:**
@@ -44,8 +44,8 @@ Method     : X-RAY DIFFRACTION
 List all polymer chains with their type and residue count.
 
 ```bash
-proteinspy chains protein.cif
-proteinspy chains protein.cif --output csv
+proteinspy chains my_protein.cif
+proteinspy chains my_protein.cif --output csv
 ```
 
 ---
@@ -55,8 +55,8 @@ proteinspy chains protein.cif --output csv
 Identify all non-solvent ligand molecules.
 
 ```bash
-proteinspy ligands protein.cif
-proteinspy ligands protein.cif --output json
+proteinspy ligands my_protein.cif
+proteinspy ligands my_protein.cif --output json
 ```
 
 ---
@@ -66,7 +66,7 @@ proteinspy ligands protein.cif --output json
 Find residues present in the deposited sequence but absent from ATOM records.
 
 ```bash
-proteinspy missing protein.cif
+proteinspy missing my_protein.cif
 ```
 
 ---
@@ -77,8 +77,8 @@ Compute B-factor (temperature factor) statistics globally and per chain.
 High B-factors indicate flexible or disordered regions.
 
 ```bash
-proteinspy bfactor protein.cif
-proteinspy bfactor protein.cif --output json
+proteinspy bfactor my_protein.cif
+proteinspy bfactor my_protein.cif --output json
 ```
 
 **Output:**
@@ -99,8 +99,8 @@ Detect disulfide bonds by measuring SG–SG distances between CYS residues.
 Any pair with distance ≤ 2.5 Å is reported as a disulfide bond.
 
 ```bash
-proteinspy disulfide protein.cif
-proteinspy disulfide protein.cif --output json
+proteinspy disulfide my_protein.cif
+proteinspy disulfide my_protein.cif --output json
 ```
 
 ---
@@ -111,9 +111,9 @@ Report residues at inter-chain interfaces using Cα–Cα distance.
 The cutoff is configurable (default 5.0 Å).
 
 ```bash
-proteinspy interface protein.cif
-proteinspy interface protein.cif --cutoff 8.0
-proteinspy interface protein.cif --output csv
+proteinspy interface my_protein.cif
+proteinspy interface my_protein.cif --cutoff 8.0
+proteinspy interface my_protein.cif --output csv
 ```
 
 ---
@@ -128,7 +128,7 @@ Run a quick quality check on a structure file. Reports:
 - Unit cell presence
 
 ```bash
-proteinspy validate protein.cif
+proteinspy validate my_protein.cif
 ```
 
 **Output:**
@@ -150,14 +150,14 @@ Export any analysis to a file. Format is inferred from the file extension.
 
 ```bash
 # Export all analyses to JSON
-proteinspy export protein.cif report.json
+proteinspy export my_protein.cif report.json
 
 # Export specific analysis to CSV
-proteinspy export protein.cif chains.csv --analysis chains
+proteinspy export my_protein.cif chains.csv --analysis chains
 
 # Available analyses:
 # resolution, chains, ligands, missing, bfactor, disulfide, interface, validate, all
-proteinspy export protein.cif bonds.json --analysis disulfide
+proteinspy export my_protein.cif bonds.json --analysis disulfide
 ```
 
 ---
@@ -175,8 +175,8 @@ Every command accepts `--output` (or `-o`):
 
 ```bash
 # These are all equivalent ways to specify the flag
-proteinspy chains protein.cif --output json
-proteinspy chains protein.cif -o json
+proteinspy chains my_protein.cif --output json
+proteinspy chains my_protein.cif -o json
 ```
 
 ---
@@ -186,14 +186,14 @@ proteinspy chains protein.cif -o json
 All commands work identically with `.pdb` files:
 
 ```bash
-proteinspy analyze  protein.pdb
-proteinspy bfactor  protein.pdb --output json
-proteinspy validate protein.pdb
+proteinspy analyze  my_protein.pdb
+proteinspy bfactor  my_protein.pdb --output json
+proteinspy validate my_protein.pdb
 ```
 
 Compressed files are also supported:
 
 ```bash
-proteinspy analyze protein.cif.gz
-proteinspy analyze protein.pdb.gz
+proteinspy analyze my_protein.cif.gz
+proteinspy analyze my_protein.pdb.gz
 ```

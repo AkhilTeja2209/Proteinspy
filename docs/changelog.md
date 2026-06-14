@@ -5,6 +5,13 @@ on GitHub for the full version history.
 
 ---
 
+## v1.1.5 - 2026-06-14
+
+- Fixed unstable PyPI version release
+- Updated testing
+
+---
+
 ## v1.1.1 — 2026-06-11
 
 - Comprehensive documentation rewrite covering all new commands
